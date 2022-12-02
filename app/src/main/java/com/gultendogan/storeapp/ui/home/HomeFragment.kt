@@ -11,12 +11,14 @@ import com.gultendogan.storeapp.databinding.FragmentHomeBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.recyclerview.widget.GridLayoutManager
+import com.gultendogan.storeapp.ui.adapter.HomeAdapter
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    lateinit var homeAdapter: HomeAdapter
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
 
     private val viewModel : HomeViewModel by viewModels()
@@ -39,6 +41,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecycler()
         viewModel.getData()
         observe()
     }
@@ -46,8 +49,17 @@ class HomeFragment : Fragment() {
     private fun observe(){
         lifecycleScope.launchWhenCreated {
             viewModel.characterList.observe(viewLifecycleOwner) {
+                homeAdapter.product = it
             }
 
+        }
+    }
+
+    private fun initRecycler(){
+        binding.homeRecycler.apply {
+            homeAdapter = HomeAdapter()
+            this.layoutManager = GridLayoutManager(context,2)
+            adapter = homeAdapter
         }
     }
 
