@@ -1,6 +1,6 @@
 package com.gultendogan.storeapp.network
 
-import com.gultendogan.storeapp.data.ApiFactory
+import com.gultendogan.storeapp.data.api.ApiFactory
 import com.gultendogan.storeapp.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides

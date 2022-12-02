@@ -1,4 +1,4 @@
-package com.gultendogan.storeapp.data
+package com.gultendogan.storeapp.data.entity
 
 data class Products(
     val title:String,

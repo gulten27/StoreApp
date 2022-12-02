@@ -1,17 +1,16 @@
 package com.gultendogan.storeapp.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gultendogan.storeapp.R
-import com.gultendogan.storeapp.data.Products
+import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.databinding.HomeRecyclerItemBinding
 
-class HomeAdapter :RecyclerView.Adapter<HomeAdapter.MyViewHolder>(){
+class HomeAdapter(private val listener: ItemClickListener) :RecyclerView.Adapter<HomeAdapter.MyViewHolder>(){
 
     class MyViewHolder(val binding: HomeRecyclerItemBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -36,8 +35,6 @@ class HomeAdapter :RecyclerView.Adapter<HomeAdapter.MyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = HomeRecyclerItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MyViewHolder(binding)
-        //val view = LayoutInflater.from(parent.context).inflate(R.layout.home_recycler_item,parent,false)
-        //return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -49,6 +46,9 @@ class HomeAdapter :RecyclerView.Adapter<HomeAdapter.MyViewHolder>(){
                     .load(product[position].image)
                     .circleCrop()
                     .into(binding.ivImage)
+            }
+            binding.addButton.setOnClickListener {
+                listener.onItemClick(product[position])
             }
         }
     }

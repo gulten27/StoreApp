@@ -1,9 +1,7 @@
 package com.gultendogan.storeapp.repository
 
-import com.gultendogan.storeapp.data.ApiFactory
-import com.gultendogan.storeapp.data.Products
-import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
+import com.gultendogan.storeapp.data.api.ApiFactory
+import com.gultendogan.storeapp.data.entity.Products
 import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(
