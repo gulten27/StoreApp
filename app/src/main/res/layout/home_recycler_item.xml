@@ -12,7 +12,9 @@
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
-            android:layout_height="110dp" />
+            android:layout_height="110dp"
+            android:contentDescription="@string/home_imageView_contentDescription"
+            />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -34,5 +36,16 @@
             android:text="@string/add_button"
             ></Button>
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/cart_fab_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="6dp"
+        android:padding="5dp"
+        android:background="@drawable/ic_baseline_favorite_border_24"
+        android:layout_gravity="right"
+        android:contentDescription="@string/home_imageButton_contentDescription"
+        />
 
 </androidx.cardview.widget.CardView>

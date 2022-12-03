@@ -13,20 +13,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
-    private val dbRepository: StoreRepository,
-): ViewModel() {
+class DashboardViewModel @Inject constructor(): ViewModel() {
 
-    val cartList: MutableLiveData<List<ProductEntity>> = MutableLiveData()
-    fun getAllProductFromRoom(){
-        viewModelScope.launch(Dispatchers.IO) {
-            cartList.postValue(dbRepository.getAllProducts())
-        }
-    }
-
-    fun deleteProduct(productId: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            dbRepository.deleteProduct(productId)
-        }
-    }
 }
