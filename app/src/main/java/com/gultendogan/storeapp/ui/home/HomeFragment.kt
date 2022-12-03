@@ -68,6 +68,11 @@ class HomeFragment : Fragment() {
                     addRoom(product)
                     Toast.makeText(requireContext(),"Added to cart",Toast.LENGTH_LONG).show()
                 }
+
+                override fun favOnItemClick(product: Products) {
+                    product.isFav=true
+                    addFavorite(product)
+                }
             })
             this.layoutManager = GridLayoutManager(context,2)
             adapter = homeAdapter
@@ -81,5 +86,9 @@ class HomeFragment : Fragment() {
 
     private fun addRoom(products: Products){
         viewModel.addProduct(products)
+    }
+
+    private fun addFavorite(products: Products){
+        viewModel.addFavorite(products)
     }
 }

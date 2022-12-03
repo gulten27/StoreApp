@@ -2,7 +2,6 @@ package com.gultendogan.storeapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +48,9 @@ class HomeAdapter(private val listener: ItemClickListener) :RecyclerView.Adapter
             }
             binding.addButton.setOnClickListener {
                 listener.onItemClick(product[position])
+            }
+            binding.favButton.setOnClickListener {
+                listener.favOnItemClick(product[position])
             }
         }
     }
