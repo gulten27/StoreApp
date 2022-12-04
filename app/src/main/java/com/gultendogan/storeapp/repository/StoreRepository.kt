@@ -2,6 +2,7 @@ package com.gultendogan.storeapp.repository
 
 import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.local.FavoriteDao
+import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.data.local.CartDao
 import javax.inject.Inject
 

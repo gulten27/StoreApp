@@ -1,6 +1,7 @@
 package com.gultendogan.storeapp.data.entity
 
 data class Products(
+    val id:Int,
     val title:String,
     val price:Float,
     val category:String,

@@ -1,5 +1,6 @@
 package com.gultendogan.storeapp.ui.dashboard
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,10 +42,11 @@ class DashboardFragment : Fragment() {
     private fun initRecycler(){
         binding.favRecycler.apply {
             favAdapter = FavoriteAdapter(object : FavoriteItemClickListener {
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onItemClick(productEntity: ProductEntity) {
                     viewModel.deleteFavorite(productEntity.uid)
                     viewModel.getAllFavoriteFromRoom()
-                    observe()
+                    favAdapter.notifyDataSetChanged()
                 }
             })
 
@@ -56,9 +58,6 @@ class DashboardFragment : Fragment() {
     private fun observe(){
         viewModel.favList.observe(viewLifecycleOwner){
             favAdapter.product = it
-            it.forEach {
-                println(it.price)
-            }
         }
     }
 
