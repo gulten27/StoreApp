@@ -19,17 +19,16 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepositoryImpl,
-    private val apiFactory: ApiFactory,
     private val dbRepository: StoreRepository
 ): ViewModel() {
 
     val productList: MutableLiveData<List<Products>> = MutableLiveData()
-    var roomList: MutableList<Products> = mutableListOf()
+    var roomList: MutableLiveData<List<Products>> = MutableLiveData()
     fun getData(
     ) = viewModelScope.launch(Dispatchers.IO){
         productList.postValue(repository.getProducts())
-        roomList.addAll(repository.getProducts())
-        isFav(roomList,dbRepository.getAllFavorites())
+        roomList.postValue(repository.getProducts())
+        roomList.value?.let { isFav(it,dbRepository.getAllFavorites()) }
     }
 
     fun addProduct(product: Products){//mapperla kullan

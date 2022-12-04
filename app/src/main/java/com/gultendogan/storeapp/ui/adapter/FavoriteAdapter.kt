@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gultendogan.storeapp.R
 import com.gultendogan.storeapp.data.entity.ProductEntity
+import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.databinding.CartRecyclerItemBinding
 import com.gultendogan.storeapp.databinding.FavRecyclerItemBinding
 
@@ -18,19 +19,19 @@ class FavoriteAdapter(private val listener: FavoriteItemClickListener) : Recycle
 
     }
 
-    object FavDiffCallback : DiffUtil.ItemCallback<ProductEntity>() {
-        override fun areItemsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
+    object FavDiffCallback : DiffUtil.ItemCallback<Products>() {
+        override fun areItemsTheSame(oldItem: Products, newItem: Products): Boolean {
             return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
+        override fun areContentsTheSame(oldItem: Products, newItem: Products): Boolean {
             return oldItem == newItem
         }
 
     }
 
     private val diffList = AsyncListDiffer(this, FavDiffCallback)
-    var product: List<ProductEntity>
+    var product: List<Products>
         get() = diffList.currentList
         set(value) = diffList.submitList(value)
 
@@ -59,7 +60,6 @@ class FavoriteAdapter(private val listener: FavoriteItemClickListener) : Recycle
             }
         }
     }
-
     override fun getItemCount(): Int {
         return product.size
     }

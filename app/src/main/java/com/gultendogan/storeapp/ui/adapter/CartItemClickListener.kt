@@ -1,7 +1,7 @@
 package com.gultendogan.storeapp.ui.adapter
 
-import com.gultendogan.storeapp.data.entity.ProductEntity
+import com.gultendogan.storeapp.data.entity.Products
 
 interface CartItemClickListener {
-    fun onItemClick(productEntity: ProductEntity)
+    fun onItemClick(product: Products)
 }

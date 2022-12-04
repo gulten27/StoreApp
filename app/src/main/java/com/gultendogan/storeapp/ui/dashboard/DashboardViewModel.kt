@@ -26,6 +26,7 @@ class DashboardViewModel @Inject constructor(
     fun deleteFavorite(productId: Int){
         viewModelScope.launch(Dispatchers.IO) {
             dbRepository.deleteFavorite(productId)
+            getAllFavoriteFromRoom()
         }
     }
 

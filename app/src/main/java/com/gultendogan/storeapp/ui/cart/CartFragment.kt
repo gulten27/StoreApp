@@ -1,9 +1,12 @@
 package com.gultendogan.storeapp.ui.cart
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gultendogan.storeapp.data.entity.ProductEntityMapper
+import com.gultendogan.storeapp.data.entity.Products
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +23,7 @@ class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private val viewModel : CartViewModel by viewModels()
     private val binding get() = _binding!!
+    val mapper = ProductEntityMapper()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +50,12 @@ class CartFragment : Fragment() {
     private fun initRecycler(){
         binding.cartRecycler.apply {
             cartAdapter = CartAdapter(object : CartItemClickListener {
-                override fun onItemClick(productEntity: ProductEntity) {
-                    viewModel.deleteProduct(productEntity.uid)
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onItemClick(product: Products) {
+                    viewModel.deleteProduct(product.id)
                     viewModel.getAllProductFromRoom()
                     observe()
+                    cartAdapter.notifyDataSetChanged()
                 }
             })
 
@@ -60,10 +66,8 @@ class CartFragment : Fragment() {
 
     private fun observe(){
         viewModel.cartList.observe(viewLifecycleOwner){
-            cartAdapter.product = it
-            it.forEach {
-                println(it.price)
-            }
+            val productList: List<Products> = mapper.fromEntityList(it)
+            cartAdapter.product = productList
         }
     }
 }
