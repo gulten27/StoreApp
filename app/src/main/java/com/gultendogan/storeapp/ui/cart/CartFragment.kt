@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gultendogan.storeapp.data.entity.ProductEntityMapper
+import com.gultendogan.storeapp.domain.mapper.ProductEntityMapper
 import com.gultendogan.storeapp.data.entity.Products
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.databinding.FragmentCartBinding
 import com.gultendogan.storeapp.ui.adapter.CartAdapter
 import com.gultendogan.storeapp.ui.adapter.CartItemClickListener

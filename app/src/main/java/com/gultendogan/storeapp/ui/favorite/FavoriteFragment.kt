@@ -1,4 +1,4 @@
-package com.gultendogan.storeapp.ui.dashboard
+package com.gultendogan.storeapp.ui.favorite
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,19 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.gultendogan.storeapp.data.entity.ProductEntity
-import com.gultendogan.storeapp.data.entity.ProductEntityMapper
+import com.gultendogan.storeapp.domain.mapper.ProductEntityMapper
 import com.gultendogan.storeapp.data.entity.Products
-import com.gultendogan.storeapp.databinding.FragmentDashboardBinding
+import com.gultendogan.storeapp.databinding.FragmentFavoriteBinding
 import com.gultendogan.storeapp.ui.adapter.FavoriteAdapter
 import com.gultendogan.storeapp.ui.adapter.FavoriteItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment() {
+class FavoriteFragment : Fragment() {
     lateinit var favAdapter: FavoriteAdapter
-    private var _binding: FragmentDashboardBinding? = null
-    private val viewModel : DashboardViewModel by viewModels()
+    private var _binding: FragmentFavoriteBinding? = null
+    private val viewModel : FavoriteViewModel by viewModels()
     private val binding get() = _binding!!
 
     val mapper = ProductEntityMapper()
@@ -30,7 +29,7 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root

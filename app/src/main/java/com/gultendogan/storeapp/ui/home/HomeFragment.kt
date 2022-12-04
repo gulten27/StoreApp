@@ -13,13 +13,16 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.gultendogan.storeapp.R
 import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.databinding.FragmentHomeBinding
+import com.gultendogan.storeapp.ui.adapter.CategoryItemClickListener
 import com.gultendogan.storeapp.ui.adapter.HomeAdapter
+import com.gultendogan.storeapp.ui.adapter.HomeCategoryAdapter
 import com.gultendogan.storeapp.ui.adapter.ItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,10 +31,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BottomSheetDialogFragment() {
     lateinit var homeAdapter: HomeAdapter
+    lateinit var categoryAdapter: HomeCategoryAdapter
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var categoryList: ArrayList<String>
     private val viewModel : HomeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        categoryList = arrayListOf<String>()
         super.onCreate(savedInstanceState)
     }
     override fun onCreateView(
@@ -44,6 +51,7 @@ class HomeFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
+        initCategoryRecycler()
         viewModel.getData()
         observe()
     }
@@ -60,6 +68,26 @@ class HomeFragment : BottomSheetDialogFragment() {
             }
         }
     }
+
+    private fun initCategoryRecycler(){
+        binding.categoryRecycler.apply {
+            categoryAdapter = HomeCategoryAdapter(categoryList,object : CategoryItemClickListener{
+                override fun onItemClick(category: String) {
+                    viewModel.getCategoryProduct(category)
+                    initRecycler()
+                    viewModel.getData()
+                    observe()
+                }
+
+            })
+            viewModel.categoryList.observe(viewLifecycleOwner, Observer {
+                categoryAdapter.setList(it)
+            })
+            this.layoutManager = GridLayoutManager(context,4)
+            adapter = categoryAdapter
+        }
+    }
+
     private fun initRecycler(){
         binding.homeRecycler.apply {
             homeAdapter = HomeAdapter(object : ItemClickListener{
@@ -103,7 +131,7 @@ class HomeFragment : BottomSheetDialogFragment() {
 
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-    private fun showDialog(product: Products){
+    private fun showDialog(product: Products)=binding.apply{
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(R.layout.home_bottom_sheet_dialog)
         val btnEdit= dialog.findViewById<RelativeLayout>(R.id.rl_edit)

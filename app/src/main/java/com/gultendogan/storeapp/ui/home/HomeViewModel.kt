@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.*
 import com.gultendogan.storeapp.data.api.ApiFactory
+import com.gultendogan.storeapp.data.entity.Categories
 import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.entity.Products
+import com.gultendogan.storeapp.domain.mapper.ProductEntityMapper
 import com.gultendogan.storeapp.data.local.StoreDao
 import com.gultendogan.storeapp.domain.mapper.StoreEntityMapper
 import com.gultendogan.storeapp.repository.StoreRepository
@@ -21,11 +23,14 @@ class HomeViewModel @Inject constructor(
     private val repository: HomeRepositoryImpl,
     private val dbRepository: StoreRepository
 ): ViewModel() {
-
+    val categoryList: MutableLiveData<Categories> = MutableLiveData()
     val productList: MutableLiveData<List<Products>> = MutableLiveData()
     var roomList: MutableLiveData<List<Products>> = MutableLiveData()
+    var filteredProductList: MutableList<Products> = mutableListOf()
+    val mapper = ProductEntityMapper()
     fun getData(
     ) = viewModelScope.launch(Dispatchers.IO){
+        categoryList.postValue(repository.getCategories())
         productList.postValue(repository.getProducts())
         roomList.postValue(repository.getProducts())
         roomList.value?.let { isFav(it,dbRepository.getAllFavorites()) }
@@ -33,21 +38,21 @@ class HomeViewModel @Inject constructor(
 
     fun addProduct(product: Products){//mapperla kullan
         viewModelScope.launch {
-            dbRepository.addProduct(ProductEntity(title = product.title, price = product.price,
-                category = product.category, description = product.description, image = product.image, isFav = product.isFav))
+            val productEntity: ProductEntity = mapper.mapToEntity(product)
+            dbRepository.addProduct(productEntity)
         }
     }
 
     fun addFavorite(product: Products){
         viewModelScope.launch {
-            dbRepository.addFavorite(ProductEntity(title = product.title, price = product.price,
-                category = product.category, description = product.description, image = product.image, isFav = product.isFav))
+            val productEntity: ProductEntity = mapper.mapToEntity(product)
+            dbRepository.addFavorite(productEntity)
         }
     }
 
     fun deleteFavorite(product: Products){
         viewModelScope.launch(Dispatchers.IO) {
-            var favList: MutableList<ProductEntity> = mutableListOf()
+            val favList: MutableList<ProductEntity> = mutableListOf()
             favList.addAll(dbRepository.getAllFavorites())
             favList.forEach {
                 if (it.title.equals(product.title)){
@@ -66,5 +71,15 @@ class HomeViewModel @Inject constructor(
             }
         }
         productList.postValue(products)
+    }
+
+    fun getCategoryProduct(category: String){
+        filteredProductList.clear()
+        roomList.value?.forEach {
+            if (it.category.equals(category)){
+                filteredProductList.add(it)
+            }
+        }
+        roomList.value = filteredProductList
     }
 }

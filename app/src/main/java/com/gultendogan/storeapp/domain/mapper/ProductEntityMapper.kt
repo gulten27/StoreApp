@@ -1,6 +1,7 @@
-package com.gultendogan.storeapp.data.entity
+package com.gultendogan.storeapp.domain.mapper
 
-import com.gultendogan.storeapp.domain.mapper.EntityMapper
+import com.gultendogan.storeapp.data.entity.ProductEntity
+import com.gultendogan.storeapp.data.entity.Products
 
 class ProductEntityMapper : EntityMapper<ProductEntity, Products> {
     override fun mapFromEntity(entity: ProductEntity): Products {
@@ -13,12 +14,11 @@ class ProductEntityMapper : EntityMapper<ProductEntity, Products> {
 
     override fun mapToEntity(domainModel: Products): ProductEntity {
         return ProductEntity(
-            uid = domainModel.id, title = domainModel.title,
+            title = domainModel.title,
             price = domainModel.price, category = domainModel.category,
             description = domainModel.description, image = domainModel.image, isFav = domainModel.isFav
         )
     }
-
     fun fromEntityList(initial: List<ProductEntity>): List<Products>{
         return initial.map { mapFromEntity(it) }
     }
