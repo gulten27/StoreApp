@@ -51,6 +51,9 @@ class HomeAdapter(private val listener: ItemClickListener) :RecyclerView.Adapter
             binding.favButton.setOnClickListener {
                 listener.favOnItemClick(product[position])
             }
+            holder.itemView.setOnClickListener {
+                listener.onFragmentItemClick(product[position])
+            }
         }
     }
     override fun getItemCount(): Int {
