@@ -2,10 +2,8 @@ package com.gultendogan.storeapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gultendogan.storeapp.data.local.AppDatabase
 import com.gultendogan.storeapp.data.local.FavoriteDao
 import com.gultendogan.storeapp.data.local.FavoriteDatabase
-import com.gultendogan.storeapp.data.local.StoreDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

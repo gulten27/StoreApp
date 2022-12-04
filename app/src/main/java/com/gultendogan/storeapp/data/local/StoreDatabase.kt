@@ -8,6 +8,6 @@ import com.gultendogan.storeapp.data.entity.ProductEntity
     entities = [ProductEntity::class],
     version = 1
 )
-abstract class AppDatabase: RoomDatabase() {
+abstract class StoreDatabase: RoomDatabase() {
     abstract fun storeDao(): StoreDao
 }

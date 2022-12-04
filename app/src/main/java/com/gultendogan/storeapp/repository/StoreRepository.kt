@@ -2,11 +2,11 @@ package com.gultendogan.storeapp.repository
 
 import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.local.FavoriteDao
-import com.gultendogan.storeapp.data.local.StoreDao
+import com.gultendogan.storeapp.data.local.CartDao
 import javax.inject.Inject
 
 class StoreRepository @Inject constructor(
-    private val dbDao: StoreDao,
+    private val dbDao: CartDao,
     private val dbFavDao: FavoriteDao
 ){
     fun getAllProducts() = dbDao.getAllProducts()
