@@ -11,4 +11,6 @@
     <string name="home_imageButton_contentDescription">Favorite</string>
 
     <string name="title_categories">Categories</string>
+
+    <string name="home_bottomSheet_imageView_contentDescription">Product</string>
 </resources>

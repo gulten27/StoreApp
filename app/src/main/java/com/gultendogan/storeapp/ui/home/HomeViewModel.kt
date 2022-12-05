@@ -27,9 +27,11 @@ class HomeViewModel @Inject constructor(
     val productList: MutableLiveData<List<Products>> = MutableLiveData()
     var roomList: MutableLiveData<List<Products>> = MutableLiveData()
     var filteredProductList: MutableList<Products> = mutableListOf()
+    val progressBar = MutableLiveData<Boolean>()
     val mapper = ProductEntityMapper()
     fun getData(
     ) = viewModelScope.launch(Dispatchers.IO){
+        progressBar.postValue(true)
         categoryList.postValue(repository.getCategories())
         productList.postValue(repository.getProducts())
         roomList.postValue(repository.getProducts())
@@ -71,9 +73,11 @@ class HomeViewModel @Inject constructor(
             }
         }
         productList.postValue(products)
+        progressBar.postValue(false)
     }
 
     fun getCategoryProduct(category: String){
+        progressBar.postValue(true)
         filteredProductList.clear()
         roomList.value?.forEach {
             if (it.category.equals(category)){

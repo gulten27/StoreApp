@@ -10,8 +10,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.*
-import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -64,7 +62,23 @@ class HomeFragment : BottomSheetDialogFragment() {
     private fun observe(){
         lifecycleScope.launchWhenCreated {
             viewModel.productList.observe(viewLifecycleOwner){
+                binding.progressBar.visibility = View.VISIBLE
                 homeAdapter.product = it
+                binding.progressBar.visibility = View.GONE
+            }
+
+            viewModel.progressBar.observe(viewLifecycleOwner){
+                if (it){
+                    binding.homeRecycler.visibility = View.GONE
+                    binding.categoryRecycler.visibility = View.GONE
+                    binding.tvCategory.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }else{
+                    binding.homeRecycler.visibility = View.VISIBLE
+                    binding.categoryRecycler.visibility = View.VISIBLE
+                    binding.tvCategory.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         }
     }
@@ -80,9 +94,11 @@ class HomeFragment : BottomSheetDialogFragment() {
                 }
 
             })
-            viewModel.categoryList.observe(viewLifecycleOwner, Observer {
-                categoryAdapter.setList(it)
-            })
+            lifecycleScope.launchWhenCreated {
+                viewModel.categoryList.observe(viewLifecycleOwner){
+                    categoryAdapter.setList(it)
+                }
+            }
             this.layoutManager = GridLayoutManager(context,4)
             adapter = categoryAdapter
         }
@@ -135,14 +151,22 @@ class HomeFragment : BottomSheetDialogFragment() {
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(R.layout.home_bottom_sheet_dialog)
         val btnEdit= dialog.findViewById<RelativeLayout>(R.id.rl_edit)
-        val tvTitle: TextView? = dialog.findViewById<TextView>(R.id.tvTitle)
-        val ivImage: ImageView? = dialog.findViewById<ImageView>(R.id.ivImage)
+        val tvTitle: TextView? = dialog.findViewById<TextView>(R.id.tv_title)
+        val ivImage: ImageView? = dialog.findViewById<ImageView>(R.id.iv_dialog)
         val tvPrice: TextView? = dialog.findViewById<TextView>(R.id.tv_price)
-        val tvCategory: TextView? = dialog.findViewById<TextView>(R.id.tvCategory)
-        val tvDescription: TextView? = dialog.findViewById<TextView>(R.id.tvDescription)
+        val tvCategory: TextView? = dialog.findViewById<TextView>(R.id.tv_category)
+        val tvDescription: TextView? = dialog.findViewById<TextView>(R.id.tv_description)
         val addButton: Button? = dialog.findViewById<Button>(R.id.add_button)
         val favButton: ImageButton? = dialog.findViewById<ImageButton>(R.id.fav_button)
+        val rBar: RatingBar? = dialog.findViewById<RatingBar>(R.id.rBar)
+        val tvBar: TextView? = dialog.findViewById<TextView>(R.id.tv_rate)
 
+        if (rBar != null) {
+            rBar.rating = product.rating!!.rate
+        }
+        if (tvBar != null) {
+            tvBar.text = product.rating!!.rate.toString()
+        }
         if (ivImage != null) {
             Glide.with(ivImage)
                 .load(product.image)

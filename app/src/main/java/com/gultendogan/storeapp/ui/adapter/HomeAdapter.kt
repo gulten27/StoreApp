@@ -36,14 +36,16 @@ class HomeAdapter(private val listener: ItemClickListener) :RecyclerView.Adapter
             with(product){
                 binding.tvTitle.text = product[position].title
                 binding.tvPrice.text = product[position].price.toString()
-                Glide.with(binding.ivImage)
+                Glide.with(binding.ivHome)
                     .load(product[position].image)
-                    .into(binding.ivImage)
+                    .into(binding.ivHome)
                 if(product[position].isFav==true){
                     binding.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
                 }else{
                     binding.favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
                 }
+                binding.rBar.rating = product[position].rating?.rate!!.toFloat()
+                binding.tvRate.text = product[position].rating?.rate.toString()
             }
             binding.addButton.setOnClickListener {
                 listener.onItemClick(product[position])
