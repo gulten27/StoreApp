@@ -10,13 +10,11 @@ import com.gultendogan.storeapp.data.entity.Categories
 import com.gultendogan.storeapp.databinding.HomeCategoryRecyclerItemBinding
 
 
-class HomeCategoryAdapter(var categoryList:ArrayList<String>,private var listener:CategoryItemClickListener) : RecyclerView.Adapter<HomeCategoryAdapter.MyViewHolder>() {
+class HomeCategoryAdapter(private var categoryList:ArrayList<String>,private var listener:CategoryItemClickListener) : RecyclerView.Adapter<HomeCategoryAdapter.MyViewHolder>() {
 
 
     class MyViewHolder(val binding: HomeCategoryRecyclerItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-    }
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
@@ -26,7 +24,7 @@ class HomeCategoryAdapter(var categoryList:ArrayList<String>,private var listene
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder){
-            binding.tvCategory.text = categoryList[position].toString()
+            binding.tvCategory.text = categoryList[position]
 
             binding.tvCategory.setOnClickListener {
                 listener.onItemClick(categoryList[position])

@@ -1,5 +1,6 @@
 package com.gultendogan.storeapp.ui.dialog
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,14 +46,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         viewModel.addCart(products)
     }
 
-    private fun addFavorite(products: Products){
-        viewModel.addFavorite(products)
-    }
-
-    private fun deleteFavorite(products: Products){
-        viewModel.deleteFavorite(products)
-    }
-
+    @SuppressLint("SetTextI18n")
     fun showDialog(){
         val args = arguments
         val product: Products? = args?.getParcelable("productForDialog")
@@ -64,20 +58,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                 tvTitle.text = product.title
                 tvCategory.text = product.category
                 tvDescription.text = product.description
-                tvPrice.text = product.price.toString()
+                tvPrice.text = "$"+product.price.toString()
                 tvRate.text = product.rating?.rate.toString()
                 rBar.rating = product.rating!!.rate
-                favButton.setOnClickListener {
-                    if (product.isFav==true){
-                        product.isFav=false
-                        deleteFavorite(product)
-                        favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
-                    }else{
-                        product.isFav=true
-                        addFavorite(product)
-                        favButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-                    }
-                }
                 addButton.setOnClickListener {
                     addCart(product)
                     Toast.makeText(requireContext(),"Added to cart", Toast.LENGTH_LONG).show()

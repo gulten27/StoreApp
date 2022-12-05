@@ -25,8 +25,8 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
     val categoryList: MutableLiveData<Categories> = MutableLiveData()
     val productList: MutableLiveData<List<Products>> = MutableLiveData()
-    var roomList: MutableLiveData<List<Products>> = MutableLiveData()
-    var filteredProductList: MutableList<Products> = mutableListOf()
+    private var roomList: MutableLiveData<List<Products>> = MutableLiveData()
+    private var filteredProductList: MutableList<Products> = mutableListOf()
     val progressBar = MutableLiveData<Boolean>()
     val mapper = ProductEntityMapper()
     fun getData(

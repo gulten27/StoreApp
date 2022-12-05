@@ -77,16 +77,6 @@
                 />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/fav_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="6dp"
-            android:padding="5dp"
-            android:background="@drawable/ic_baseline_favorite_border_24"
-            android:layout_gravity="right"
-            android:contentDescription="@string/home_imageButton_contentDescription"
-            />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
