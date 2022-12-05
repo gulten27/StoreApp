@@ -9,6 +9,7 @@ import com.gultendogan.storeapp.domain.mapper.ProductEntityMapper
 import com.gultendogan.storeapp.data.entity.Products
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gultendogan.storeapp.databinding.FragmentCartBinding
 import com.gultendogan.storeapp.ui.adapter.CartAdapter
@@ -22,7 +23,7 @@ class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private val viewModel : CartViewModel by viewModels()
     private val binding get() = _binding!!
-    val mapper = ProductEntityMapper()
+    private val mapper = ProductEntityMapper()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +42,12 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+        setupRecycler()
         viewModel.getAllProductFromRoom()
         observe()
     }
 
-    private fun initRecycler(){
+    private fun setupRecycler(){
         binding.cartRecycler.apply {
             cartAdapter = CartAdapter(object : CartItemClickListener {
                 @SuppressLint("NotifyDataSetChanged")
@@ -63,10 +64,25 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun observe(){
-        viewModel.cartList.observe(viewLifecycleOwner){
-            val productList: List<Products> = mapper.fromEntityList(it)
-            cartAdapter.product = productList
+    private fun observe() {
+        lifecycleScope.launchWhenCreated {
+
+            viewModel.cartList.observe(viewLifecycleOwner) {
+                viewModel.progressBar.postValue(true)
+                val productList: List<Products> = mapper.fromEntityList(it)
+                cartAdapter.product = productList
+                viewModel.progressBar.postValue(false)
+            }
+
+            viewModel.progressBar.observe(viewLifecycleOwner){
+                if (it){
+                    binding.cartRecycler.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }else{
+                    binding.cartRecycler.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
         }
     }
 }

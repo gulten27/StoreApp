@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +24,7 @@ class FavoriteFragment : Fragment() {
     private val viewModel : FavoriteViewModel by viewModels()
     private val binding get() = _binding!!
 
-    val mapper = ProductEntityMapper()
+    private val mapper = ProductEntityMapper()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +39,12 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+        setupRecycler()
         viewModel.getAllFavoriteFromRoom()
         observe()
     }
 
-    private fun initRecycler(){
+    private fun setupRecycler(){
         binding.favRecycler.apply {
             favAdapter = FavoriteAdapter(object : FavoriteItemClickListener {
                 @SuppressLint("NotifyDataSetChanged")
@@ -52,6 +53,11 @@ class FavoriteFragment : Fragment() {
                     viewModel.getAllFavoriteFromRoom()
                     observe()
                     favAdapter.notifyDataSetChanged()
+                }
+
+                override fun onCartItemClick(product: Products) {
+                    addCart(product)
+                    Toast.makeText(requireContext(),"Added to cart", Toast.LENGTH_LONG).show()
                 }
             })
 
@@ -80,6 +86,10 @@ class FavoriteFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun addCart(products: Products){
+        viewModel.addCart(products)
     }
 
     override fun onDestroyView() {
