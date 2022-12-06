@@ -5,28 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.gultendogan.storeapp.R
 import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.databinding.FragmentHomeBinding
 import com.gultendogan.storeapp.ui.adapter.CategoryItemClickListener
 import com.gultendogan.storeapp.ui.adapter.HomeAdapter
 import com.gultendogan.storeapp.ui.adapter.HomeCategoryAdapter
 import com.gultendogan.storeapp.ui.adapter.ItemClickListener
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
