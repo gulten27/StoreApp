@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.gultendogan.storeapp.data.entity.ProductEntity
-import com.gultendogan.storeapp.data.entity.Products
-
 @Dao
 interface FavoriteDao {
     @Insert

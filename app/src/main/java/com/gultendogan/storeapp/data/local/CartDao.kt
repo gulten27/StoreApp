@@ -2,7 +2,6 @@ package com.gultendogan.storeapp.data.local
 
 import androidx.room.*
 import com.gultendogan.storeapp.data.entity.ProductEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CartDao {

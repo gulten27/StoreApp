@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gultendogan.storeapp.R
-import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.entity.Products
-import com.gultendogan.storeapp.databinding.CartRecyclerItemBinding
 import com.gultendogan.storeapp.databinding.FavRecyclerItemBinding
 
 class FavoriteAdapter(private val listener: FavoriteItemClickListener) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {

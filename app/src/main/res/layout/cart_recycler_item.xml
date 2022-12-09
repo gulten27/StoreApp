@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="3dp"
     android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,30 +16,32 @@
         <ImageView
             android:id="@+id/ivCart"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
             android:contentDescription="@string/cart_imageView_contentDescription"
             />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp" />
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textStyle="bold"
-            android:layout_margin="10dp" />
+            android:textColor="@color/green"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_button"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/delete_button"
+            android:textSize="10sp"
             app:icon="@drawable/ic_baseline_delete_24"
             android:layout_gravity="center"/>
     </LinearLayout>

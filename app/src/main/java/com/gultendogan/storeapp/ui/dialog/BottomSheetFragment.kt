@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.gultendogan.storeapp.R
 import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.databinding.FragmentBottomSheetBinding
 import com.gultendogan.storeapp.ui.home.HomeViewModel

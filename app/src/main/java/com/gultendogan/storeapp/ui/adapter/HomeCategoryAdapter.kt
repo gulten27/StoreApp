@@ -3,10 +3,7 @@ package com.gultendogan.storeapp.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.gultendogan.storeapp.data.entity.Categories
 import com.gultendogan.storeapp.databinding.HomeCategoryRecyclerItemBinding
 
 

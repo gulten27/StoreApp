@@ -58,7 +58,6 @@ class HomeFragment : Fragment() {
                 refresh()
 
             }
-
         }
     }
 

@@ -3,32 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="3dp"
     android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_margin="15dp">
 
         <ImageView
             android:id="@+id/iv_home"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
             android:contentDescription="@string/home_imageView_contentDescription"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            tools:srcCompat="@tools:sample/avatars"
             />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp" />
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textStyle="bold"
-            android:layout_margin="10dp" />
+            android:layout_marginTop="5dp"
+            android:textColor="@color/green"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,10 +60,10 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:icon="@drawable/ic_baseline_shopping_cart_24"
             android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            app:strokeWidth="1dp"
+            android:layout_height="wrap_content"
             app:strokeColor="@color/purple_500"
             android:text="@string/add_button"
+            android:textSize="10sp"
             android:layout_gravity="center"
             ></com.google.android.material.button.MaterialButton>
     </LinearLayout>
@@ -66,7 +72,7 @@
         android:id="@+id/fav_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_margin="12dp"
         android:padding="5dp"
         android:background="@drawable/ic_baseline_favorite_border_24"
         android:layout_gravity="right"

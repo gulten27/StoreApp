@@ -3,13 +3,10 @@ package com.gultendogan.storeapp.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.*
-import com.gultendogan.storeapp.data.api.ApiFactory
 import com.gultendogan.storeapp.data.entity.Categories
 import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.entity.Products
 import com.gultendogan.storeapp.domain.mapper.ProductEntityMapper
-import com.gultendogan.storeapp.data.local.StoreDao
-import com.gultendogan.storeapp.domain.mapper.StoreEntityMapper
 import com.gultendogan.storeapp.repository.StoreRepository
 import com.gultendogan.storeapp.repository.HomeRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -86,4 +83,5 @@ class HomeViewModel @Inject constructor(
         }
         roomList.value = filteredProductList
     }
+
 }

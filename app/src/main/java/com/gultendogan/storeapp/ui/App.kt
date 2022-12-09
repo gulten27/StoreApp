@@ -1,7 +1,6 @@
 package com.gultendogan.storeapp.ui
 
 import android.app.Application
-import androidx.viewbinding.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 
 

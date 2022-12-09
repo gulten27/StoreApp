@@ -2,7 +2,6 @@ package com.gultendogan.storeapp.repository
 
 import com.gultendogan.storeapp.data.api.ApiFactory
 import com.gultendogan.storeapp.data.entity.Categories
-import com.gultendogan.storeapp.data.entity.ProductEntity
 import com.gultendogan.storeapp.data.entity.Products
 import javax.inject.Inject
 
@@ -17,4 +16,6 @@ class HomeRepositoryImpl @Inject constructor(
     suspend fun getCategories(): Categories {
         return apiFactory.getAllCategories()
     }
+
+
 }
